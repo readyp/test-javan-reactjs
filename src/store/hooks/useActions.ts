@@ -4,6 +4,7 @@ import shoppingCartIncrementAction from "../action-creator/shopping-cart-increme
 import shoppingCartDecrementAction from "../action-creator/shopping-cart-decrement";
 import shoppingCartRemoveItemAction from "../action-creator/shopping-cart-remove-item";
 import shoppingCartCheckoutAction from "../action-creator/shopping-cart-checkout";
+import shoppingCartWishlistAction from "../action-creator/shopping-cart-wishlist-item";
 
 const useActions = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const useActions = () => {
       shoppingCartDecrementAction,
       shoppingCartRemoveItemAction,
       shoppingCartCheckoutAction,
+      shoppingCartWishlistAction,
     },
     dispatch
   );

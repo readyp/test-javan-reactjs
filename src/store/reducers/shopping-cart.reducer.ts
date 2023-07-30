@@ -19,7 +19,17 @@ interface CheckoutItemInterface {
   type: "CHECKOUT ITEM";
 }
 
-export type ActionType = IncrementItemInterface | DecrementItemInterface | RemoveItemInterface | CheckoutItemInterface;
+interface MoveToWishlistInterface {
+  type: "WISHLIST ITEM";
+  payload: number;
+}
+
+export type ActionType =
+  | IncrementItemInterface
+  | DecrementItemInterface
+  | RemoveItemInterface
+  | CheckoutItemInterface
+  | MoveToWishlistInterface;
 
 const initialState: ItemInterface[] = [
   {
@@ -68,6 +78,8 @@ const shoppingCartReducer = (state: ItemInterface[] = initialState, action: Acti
       return state.filter((cart) => cart.id !== action.payload);
     case "CHECKOUT ITEM":
       return [];
+    case "WISHLIST ITEM":
+      return state.filter((cart) => cart.id !== action.payload);
     default:
       return state;
   }

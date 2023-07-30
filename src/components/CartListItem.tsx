@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { FaHeart, FaTrash } from "react-icons/fa";
 import ItemInterface from "../types/item.interface";
 import useActions from "../store/hooks/useActions";
@@ -8,7 +9,12 @@ interface Props {
 }
 
 const CartListItem: React.FC<Props> = ({ cart }) => {
-  const { shoppingCartIncrementAction, shoppingCartDecrementAction, shoppingCartRemoveItemAction } = useActions();
+  const {
+    shoppingCartIncrementAction,
+    shoppingCartDecrementAction,
+    shoppingCartRemoveItemAction,
+    shoppingCartWishlistAction,
+  } = useActions();
 
   const handleDecrement = (): void => {
     if (cart.count >= 1) {
@@ -16,9 +22,24 @@ const CartListItem: React.FC<Props> = ({ cart }) => {
     }
   };
 
+  const handleWishlist = (): void => {
+    shoppingCartWishlistAction(cart.id);
+    toast.info(`${cart.name} moved to wishlist`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   const renderedTags: React.ReactNode = cart.tag.map((item) => (
     <span className="uppercase font-thin text-xs">{item}</span>
   ));
+
   // render
   return (
     <div className="my-4 grid md:grid-cols-3 lg:grid-cols-4 grid-cols-1 border-b md:gap-3 lg:gap-0 pb-4">
@@ -76,7 +97,7 @@ const CartListItem: React.FC<Props> = ({ cart }) => {
               <FaTrash className="text-slate-400" />
               <span className="uppercase">remove item</span>
             </button>
-            <button className="flex items-center space-x-1">
+            <button onClick={handleWishlist} className="flex items-center space-x-1">
               <FaHeart className="text-slate-400" />
               <span className="uppercase">Move to wishlist</span>
             </button>
