@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import Discount from "./Discount";
 import useSelectorShoppingCart from "../store/hooks/useSelectorShoppingCart";
 import CartInterface from "../types/item.interface";
@@ -23,7 +24,16 @@ const Checkout: React.FC<Props> = () => {
       setLoading(true);
       setTimeout(() => {
         shoppingCartCheckoutAction();
-        alert("Checkout berhasil");
+        toast.success("Checkout berhasil", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
         setLoading(false);
       }, 1500);
     }
